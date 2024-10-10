@@ -1,11 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useTodoStore } from "../../store/store";
 import styles from "./Form.module.scss";
+import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
 // import shallow from "zustand/shallow";
 
 export const Form = () => {
-  const [title, setTitle] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
   const { addTodo } = useTodoStore();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,29 +29,28 @@ export const Form = () => {
   };
 
   return (
-    <section className={styles.wrapper}>
-      <form className={styles.form}>
-        <h3 className={styles.formTitle}>Add new todo</h3>
-        <input
-          className={styles.formInput}
-          type="text"
-          placeholder="Todo title"
-          value={title}
-          onChange={handleTitleChange}
-          required
-        />
-        <input
-          className={styles.formInput}
-          type="text"
-          placeholder="Todo category"
-          value={category}
-          onChange={handleCategoryChange}
-          required
-        />
-        <button type="submit" onClick={onSubmitClick} className={styles.formButton}>
-          Save
-        </button>
-      </form>
-    </section>
+    <form className={styles.form}>
+      <h3 className={styles.formTitle}>Add new todo</h3>
+      <Input
+        type="text"
+        placeholder="Todo title"
+        value={title}
+        onChange={handleTitleChange}
+        required
+      />
+      <Input
+        type="text"
+        placeholder="Todo category"
+        value={category}
+        onChange={handleCategoryChange}
+        required
+      />
+      <Button
+        type="submit"
+        onClick={onSubmitClick}
+      >
+        Save
+      </Button>
+    </form>
   );
 };

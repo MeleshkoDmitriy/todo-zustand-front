@@ -1,0 +1,20 @@
+@import '../../style/global.scss';
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $color-secondary;
+  border-radius: $border-radius-small;
+  font-size: 20px;
+  cursor: pointer;
+  color: $color-primary;
+
+  &::placeholder {
+    color: $color-secondary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
