@@ -1,0 +1,42 @@
+@import "../../style/global.scss";
+
+.button {
+  width: 50px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: $color-white;
+  background-color: $color-bg-primary;
+  font-weight: 700;
+  transition: $transition;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $color-secondary;
+  }
+
+  &:hover > &Icon {
+      color: $color-white;
+  }
+
+  &Icon {
+    transition: $transition;
+    color: $color-primary;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .button {
+    width: 40px;
+
+    &Icon {
+      font-size: 20px;
+    }
+  }
+}

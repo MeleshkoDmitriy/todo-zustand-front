@@ -1,6 +1,5 @@
-import { ComponentPropsWithoutRef, FC, FormEvent } from 'react';
-import styles from './Button.module.scss'
-
+import { ComponentPropsWithoutRef, FC, FormEvent } from "react";
+import styles from "./Button.module.scss";
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   children: string;
@@ -9,11 +8,8 @@ interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
 
 export const Button: FC<ButtonProps> = ({ children, onClick }) => {
   return (
-    <button
-      className={styles.button}
-      onClick={onClick}
-    >
-      { children }
+    <button className={styles.button} onClick={onClick}>
+      {children}
     </button>
   );
 };

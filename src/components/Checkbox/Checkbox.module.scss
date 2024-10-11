@@ -1,0 +1,41 @@
+@import "../../style/global.scss";
+
+.checkbox {
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-bg-primary;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: $color-secondary;
+  }
+
+  &:hover > &Icon {
+    color: $color-white;
+  }
+
+  &Input {
+    display: none;
+    width: 50px;
+  }
+
+  &Icon {
+    transition: $transition;
+    color: $color-primary;
+    font-size: 40px;
+  }
+}
+@media (max-width: 500px) {
+  .checkbox {
+    width: 40px;
+
+    &Icon {
+      font-size: 20px;
+    }
+  }
+}

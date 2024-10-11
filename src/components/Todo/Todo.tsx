@@ -5,6 +5,10 @@ import { MdDelete } from "react-icons/md";
 import { MdFileDownloadDone } from "react-icons/md";
 import { TTodo } from "../../types/types";
 import { useTodoStore } from "../../store/store";
+import { Input } from "../Input/Input";
+import { IconButton } from "../IconButton/IconButton";
+import { Checkbox } from "../Checkbox/Checkbox";
+import cn from "classnames";
 
 interface TodoProps {
   todo: TTodo;
@@ -17,16 +21,16 @@ export const Todo: FC<TodoProps> = ({
   editingTodoId,
   setEditingTodoId,
 }) => {
-  const { toggleTodo, deleteTodo, updateTodo } = useTodoStore();
+  const { toggleTodo, deleteTodo, updateTodo, selectCategory } = useTodoStore();
   const [todoTitle, setTodoTitle] = useState(todo.title);
   const [todoCategory, setTodoCategory] = useState(todo.category);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleUpdateTodo = () => {
-    if(!todoTitle || !todoCategory) {
+    if (!todoTitle || !todoCategory) {
       return;
     }
-    
+
     updateTodo({
       id: todo.id,
       title: todoTitle,
@@ -38,7 +42,9 @@ export const Todo: FC<TodoProps> = ({
   };
 
   const handleDeleteClick = () => {
-    deleteTodo(todo.id);
+    if(confirm("Are you sure you want to delete this task?")) {
+      deleteTodo(todo.id);
+    }
   };
 
   const handleEditClick = () => {
@@ -46,46 +52,58 @@ export const Todo: FC<TodoProps> = ({
     setEditingTodoId(todo.id);
   };
 
+  const handleCategoryClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const { textContent } = e.currentTarget;
+    if (textContent) {
+      selectCategory(textContent);
+    }
+  };  
+
   return (
     <div className={styles.todo}>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => toggleTodo(todo.id)}
-      />
-      {isEditing && editingTodoId === todo.id ? (
-        <input
-          type="text"
-          value={todoTitle}
-          onChange={(e) => setTodoTitle(e.target.value)}
+      <div className={styles.todoText}>
+        {isEditing && editingTodoId === todo.id ? (
+          <Input
+            value={todoTitle}
+            onChange={(e) => setTodoTitle(e.target.value)}
+          />
+        ) : (
+          <span
+            className={cn(styles.todoTextTitle, {
+              [styles.completed]: todo.completed,
+            })}
+          >
+            {todoTitle}
+          </span>
+        )}
+        {isEditing && editingTodoId === todo.id ? (
+          <Input
+            value={todoCategory}
+            onChange={(e) => setTodoCategory(e.target.value)}
+          />
+        ) : (
+          <span className={styles.todoTextCategory} onClick={handleCategoryClick}>{todoCategory}</span>
+        )}
+      </div>
+      <div className={styles.todoButtons}>
+        <Checkbox
+          checked={todo.completed}
+          onChange={() => toggleTodo(todo.id)}
         />
-      ) : (
-        <span>{todoTitle}</span>
-      )}
-      {isEditing && editingTodoId === todo.id ? (
-        <input
-          type="text"
-          value={todoCategory}
-          onChange={(e) => setTodoCategory(e.target.value)}
-        />
-      ) : (
-        <span>{todoCategory}</span>
-      )}
-      <div>
         {isEditing && editingTodoId === todo.id ? (
           <>
-            <button onClick={handleUpdateTodo}>
+            <IconButton onClick={handleUpdateTodo}>
               <MdFileDownloadDone />
-            </button>
+            </IconButton>
           </>
         ) : (
-          <button onClick={handleEditClick}>
+          <IconButton onClick={handleEditClick}>
             <BiSolidEditAlt />
-          </button>
+          </IconButton>
         )}
-        <button onClick={handleDeleteClick}>
+        <IconButton onClick={handleDeleteClick}>
           <MdDelete />
-        </button>
+        </IconButton>
       </div>
     </div>
   );

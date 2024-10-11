@@ -18,3 +18,10 @@
     border-color: $color-primary;
   }
 }
+
+@media (max-width: 500px) {
+  .input {
+    padding: 5px;
+    font-size: 16px;
+  }
+}

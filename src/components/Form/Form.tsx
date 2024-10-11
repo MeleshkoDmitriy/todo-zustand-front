@@ -33,14 +33,14 @@ export const Form = () => {
       <h3 className={styles.formTitle}>Add new todo</h3>
       <Input
         type="text"
-        placeholder="Todo title"
+        placeholder="Write title"
         value={title}
         onChange={handleTitleChange}
         required
       />
       <Input
         type="text"
-        placeholder="Todo category"
+        placeholder="Write category"
         value={category}
         onChange={handleCategoryChange}
         required

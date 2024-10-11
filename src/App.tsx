@@ -1,7 +1,7 @@
 import styles from "./App.module.scss";
 import { Filters } from "./components/Filters/Filters";
 import { Form } from "./components/Form/Form";
-import { List } from "./components/Todolist/List";
+import { List } from "./components/List/List";
 
 export const App = () => {
   return (

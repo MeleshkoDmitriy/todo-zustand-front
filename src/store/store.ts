@@ -7,7 +7,9 @@ import qs from "qs";
 interface ITodoStore {
   todos: TTodo[];
   filters: TFilters;
+  clearFilters: () => void;
   updateFilters: (filters: TFilters) => void;
+  selectCategory: (category: string) => void;
   addTodo: (title: string, category: string) => void;
   deleteTodo: (id: number) => void;
   updateTodo: (todo: TTodo) => void;
@@ -94,6 +96,26 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
         title: filters.title.trim(),
         category: filters.category.trim(),
         completed: filters.completed,
+      },
+    }));
+  },
+  selectCategory: (category: string) => {
+    set((state) => ({
+       ...state,
+      filters: {
+        title: state.filters.title,
+        category: category.trim(),
+        completed: state.filters.completed,
+      },
+    }));
+  },
+  clearFilters: () => {
+    set((state) => ({
+     ...state,
+      filters: {
+        title: "",
+        category: "",
+        completed: null,
       },
     }));
   },

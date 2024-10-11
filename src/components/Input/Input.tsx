@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, FC } from "react";
 
 interface InputProps extends ComponentPropsWithoutRef<"input"> {
   value: string;
-  placeholder: string;
+  placeholder?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

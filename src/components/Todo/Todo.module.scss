@@ -1,7 +1,64 @@
-
+@import "../../style/global.scss";
 
 .todo {
   width: 100%;
   display: flex;
+  flex-direction: column;
   gap: 10px;
+  padding: 10px;
+  background-color: $color-primary;
+  border-radius: $border-radius-small;
+
+  &Text {
+    display: flex;
+    flex-direction: column;
+
+    &Title {
+      color: $color-white;
+      font-weight: 700;
+      font-size: 20px;
+      padding: 10px;
+      border: 2px solid transparent;
+
+      &.completed {
+        text-decoration: line-through;
+        color: $color-bg-secondary;
+      }
+    }
+
+    &Category {
+      padding: 10px;
+      border: 2px solid transparent;
+      color: $color-bg-secondary;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+
+  &Buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0 10px 10px 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .todo {
+    &Text {
+      &Title,
+      &Category {
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+    }
+    &Buttons {
+      padding: 0 10px 5px 10px;
+    }
+  }
 }

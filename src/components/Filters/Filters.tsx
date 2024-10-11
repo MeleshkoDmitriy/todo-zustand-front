@@ -6,7 +6,7 @@ import { Input } from "../Input/Input";
 import { Tab } from "../Tab/Tab";
 
 export const Filters = () => {
-  const { filters, updateFilters } = useTodoStore();
+  const { filters, updateFilters, clearFilters } = useTodoStore();
   const [searchTitle, setSearchTitle] = useState(filters.title);
   const [searchCategory, setSearchCategory] = useState(filters.category);
   const [searchCompleted, setSearchCompleted] = useState(filters.completed);
@@ -15,9 +15,7 @@ export const Filters = () => {
   const debouncedCategory = useDebounce(searchCategory);
 
   const handleClearFilters = () => {
-    setSearchTitle("");
-    setSearchCategory("");
-    setSearchCompleted(null);
+    clearFilters();
   };
 
   useEffect(() => {
