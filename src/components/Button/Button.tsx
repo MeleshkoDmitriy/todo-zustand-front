@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, FC, FormEvent } from "react";
 import styles from "./Button.module.scss";
 
 interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
-  children: string;
+  children: React.ReactNode;
   onClick: (e: FormEvent<HTMLButtonElement>) => void;
 }
 

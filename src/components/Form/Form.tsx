@@ -8,7 +8,7 @@ import { Button } from "../Button/Button";
 export const Form = () => {
   const [title, setTitle] = useState<string>("");
   const [category, setCategory] = useState<string>("");
-  const { addTodo } = useTodoStore();
+  const { addTodo, loading } = useTodoStore();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -45,10 +45,7 @@ export const Form = () => {
         onChange={handleCategoryChange}
         required
       />
-      <Button
-        type="submit"
-        onClick={onSubmitClick}
-      >
+      <Button type="submit" onClick={onSubmitClick} disabled={loading}>
         Save
       </Button>
     </form>

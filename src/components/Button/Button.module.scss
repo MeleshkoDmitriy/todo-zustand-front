@@ -13,6 +13,10 @@
   transition: $transition;
   text-transform: uppercase;
 
+  &:disabled {
+    background-color: $color-bg-secondary;
+  }
+
   &:hover {
     background-color: $color-secondary;
   }

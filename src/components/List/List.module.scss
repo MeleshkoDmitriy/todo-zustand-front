@@ -12,6 +12,13 @@
   overflow: hidden;
   padding: 20px;
   transition: $transition;
+  position: relative;
+
+  &Badge {
+    position: absolute;
+    top: 10px;
+    right: 160px;
+  }
 
   &Title {
     color: $color-primary;

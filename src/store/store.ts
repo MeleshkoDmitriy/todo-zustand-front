@@ -5,6 +5,7 @@ import { BASE_URL } from "../api/api";
 import qs from "qs";
 
 interface ITodoStore {
+  loading: boolean;
   todos: TTodo[];
   filters: TFilters;
   clearFilters: () => void;
@@ -18,6 +19,7 @@ interface ITodoStore {
 }
 
 export const useTodoStore = create<ITodoStore>((set, get) => ({
+  loading: false,
   todos: [],
   addTodo: async (title: string, category: string) => {
     const newTodo = {
@@ -28,12 +30,15 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
     };
 
     try {
+      set((state) => ({ ...state, loading: true }));
       await axios.post(BASE_URL, newTodo);
       set((state) => ({
         todos: [...state.todos, newTodo],
       }));
     } catch (error) {
       console.log(error);
+    } finally {
+      set((state) => ({ ...state, loading: false }));
     }
   },
   deleteTodo: async (id: number) => {
@@ -91,7 +96,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
   },
   updateFilters: (filters: TFilters) => {
     set((state) => ({
-     ...state,
+      ...state,
       filters: {
         title: filters.title.trim(),
         category: filters.category.trim(),
@@ -101,7 +106,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
   },
   selectCategory: (category: string) => {
     set((state) => ({
-       ...state,
+      ...state,
       filters: {
         title: state.filters.title,
         category: category.trim(),
@@ -111,7 +116,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
   },
   clearFilters: () => {
     set((state) => ({
-     ...state,
+      ...state,
       filters: {
         title: "",
         category: "",
@@ -121,6 +126,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
   },
   fetchTodos: async () => {
     try {
+      set((state) => ({ ...state, loading: true }));
       const { title, category, completed } = get().filters;
       const params = qs.stringify(
         {
@@ -139,7 +145,9 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
       }));
     } catch (error) {
       console.log(error);
-      set((state) => ({...state, todos: [] }));
+      set((state) => ({ ...state, todos: [] }));
+    } finally {
+      set((state) => ({ ...state, loading: false }));
     }
   },
 }));

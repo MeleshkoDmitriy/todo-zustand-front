@@ -1,0 +1,28 @@
+@import '../../style/global.scss';
+
+.loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+
+  &Icon {
+    transition: $transition;
+    color: $color-primary;
+    font-size: 40px;
+    animation: loadingAnimation 0.25s infinite ease-out;
+  }
+}
+
+@keyframes loadingAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
