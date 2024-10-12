@@ -16,6 +16,8 @@ export const Filters = () => {
 
   const handleClearFilters = () => {
     clearFilters();
+    setSearchTitle("");
+    setSearchCategory("");
   };
 
   useEffect(() => {
