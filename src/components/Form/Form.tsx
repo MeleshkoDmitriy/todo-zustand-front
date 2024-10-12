@@ -3,12 +3,17 @@ import { useTodoStore } from "../../store/store";
 import styles from "./Form.module.scss";
 import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
-// import shallow from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export const Form = () => {
   const [title, setTitle] = useState<string>("");
   const [category, setCategory] = useState<string>("");
-  const { addTodo, loading } = useTodoStore();
+  const { addTodo, isLoading } = useTodoStore(
+    useShallow((state) => ({
+      addTodo: state.addTodo,
+      isLoading: state.isLoading,
+    }))
+  );
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -45,7 +50,7 @@ export const Form = () => {
         onChange={handleCategoryChange}
         required
       />
-      <Button type="submit" onClick={onSubmitClick} disabled={loading}>
+      <Button type="submit" onClick={onSubmitClick} disabled={isLoading}>
         Save
       </Button>
     </form>

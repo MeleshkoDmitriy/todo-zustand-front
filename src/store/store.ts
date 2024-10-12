@@ -5,7 +5,7 @@ import { BASE_URL } from "../api/api";
 import qs from "qs";
 
 interface ITodoStore {
-  loading: boolean;
+  isLoading: boolean;
   todos: TTodo[];
   filters: TFilters;
   clearFilters: () => void;
@@ -19,8 +19,13 @@ interface ITodoStore {
 }
 
 export const useTodoStore = create<ITodoStore>((set, get) => ({
-  loading: false,
+  isLoading: false,
   todos: [],
+  filters: {
+    title: "",
+    category: "",
+    completed: null,
+  },
   addTodo: async (title: string, category: string) => {
     const newTodo = {
       id: Date.now(),
@@ -30,7 +35,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
     };
 
     try {
-      set((state) => ({ ...state, loading: true }));
+      set((state) => ({ ...state, isLoading: true }));
       await axios.post(BASE_URL, newTodo);
       set((state) => ({
         todos: [...state.todos, newTodo],
@@ -38,17 +43,20 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
     } catch (error) {
       console.log(error);
     } finally {
-      set((state) => ({ ...state, loading: false }));
+      set((state) => ({ ...state, isLoading: false }));
     }
   },
   deleteTodo: async (id: number) => {
     try {
+      set((state) => ({ ...state, isLoading: true }));
       set((state) => ({
         todos: state.todos.filter((todo) => todo.id !== id),
       }));
       await axios.delete(`${BASE_URL}/${id}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      set((state) => ({ ...state, isLoading: false }));
     }
   },
   updateTodo: async (todo: TTodo) => {
@@ -59,6 +67,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
       completed: todo.completed,
     };
     try {
+      set((state) => ({ ...state, isLoading: true }));
       set((state) => ({
         todos: state.todos.map((todo) => {
           if (todo.id === todo.id) {
@@ -71,6 +80,8 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
       await axios.put(`${BASE_URL}/${todo.id}`, updatedTodo);
     } catch (error) {
       console.log(error);
+    } finally {
+      set((state) => ({ ...state, isLoading: false }));
     }
   },
   toggleTodo: async (id: number) => {
@@ -88,11 +99,6 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
     } catch (error) {
       console.log(error);
     }
-  },
-  filters: {
-    title: "",
-    category: "",
-    completed: null,
   },
   updateFilters: (filters: TFilters) => {
     set((state) => ({
@@ -126,7 +132,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
   },
   fetchTodos: async () => {
     try {
-      set((state) => ({ ...state, loading: true }));
+      set((state) => ({ ...state, isLoading: true }));
       const { title, category, completed } = get().filters;
       const params = qs.stringify(
         {
@@ -147,7 +153,7 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
       console.log(error);
       set((state) => ({ ...state, todos: [] }));
     } finally {
-      set((state) => ({ ...state, loading: false }));
+      set((state) => ({ ...state, isLoading: false }));
     }
   },
 }));

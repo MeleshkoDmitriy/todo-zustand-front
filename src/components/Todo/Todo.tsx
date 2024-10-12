@@ -9,6 +9,7 @@ import { Input } from "../Input/Input";
 import { IconButton } from "../IconButton/IconButton";
 import { Checkbox } from "../Checkbox/Checkbox";
 import cn from "classnames";
+import { useShallow } from "zustand/react/shallow";
 
 interface TodoProps {
   todo: TTodo;
@@ -21,7 +22,14 @@ export const Todo: FC<TodoProps> = ({
   editingTodoId,
   setEditingTodoId,
 }) => {
-  const { toggleTodo, deleteTodo, updateTodo, selectCategory } = useTodoStore();
+  const { toggleTodo, deleteTodo, updateTodo, selectCategory } = useTodoStore(
+    useShallow((state) => ({
+      toggleTodo: state.toggleTodo,
+      deleteTodo: state.deleteTodo,
+      updateTodo: state.updateTodo,
+      selectCategory: state.selectCategory,
+    }))
+  );
   const [todoTitle, setTodoTitle] = useState(todo.title);
   const [todoCategory, setTodoCategory] = useState(todo.category);
   const [isEditing, setIsEditing] = useState(false);
@@ -42,7 +50,7 @@ export const Todo: FC<TodoProps> = ({
   };
 
   const handleDeleteClick = () => {
-    if(confirm("Are you sure you want to delete this task?")) {
+    if (confirm("Are you sure you want to delete this task?")) {
       deleteTodo(todo.id);
     }
   };
@@ -57,7 +65,7 @@ export const Todo: FC<TodoProps> = ({
     if (textContent) {
       selectCategory(textContent);
     }
-  };  
+  };
 
   return (
     <div className={styles.todo}>
@@ -82,7 +90,12 @@ export const Todo: FC<TodoProps> = ({
             onChange={(e) => setTodoCategory(e.target.value)}
           />
         ) : (
-          <span className={styles.todoTextCategory} onClick={handleCategoryClick}>{todoCategory}</span>
+          <span
+            className={styles.todoTextCategory}
+            onClick={handleCategoryClick}
+          >
+            {todoCategory}
+          </span>
         )}
       </div>
       <div className={styles.todoButtons}>

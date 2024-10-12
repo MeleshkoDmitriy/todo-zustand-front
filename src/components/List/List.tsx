@@ -5,16 +5,22 @@ import { Todo } from "../Todo/Todo";
 import styles from "./List.module.scss";
 import { Badge } from "../Badge/Badge";
 import { Loading } from "../Loading/Loading";
+import { useShallow } from "zustand/react/shallow";
 
 export const List = () => {
-  const { todos, fetchTodos, filters, loading } = useTodoStore();
+  const { todos, fetchTodos, filters, isLoading } = useTodoStore(
+    useShallow((state) => ({
+      todos: state.todos,
+      fetchTodos: state.fetchTodos,
+      filters: state.filters,
+      isLoading: state.isLoading,
+    }))
+  );
   const [editingTodoId, setEditingTodoId] = useState<null | number>(null);
 
   useEffect(() => {
     fetchTodos();
   }, [fetchTodos, filters]);
-
-  console.log(loading)
 
   return (
     <section className={styles.list}>
@@ -24,9 +30,9 @@ export const List = () => {
             <Badge counter={todos.length} />
           </div>
         )}
-        {loading && <Loading />}
-        {todos.length > 0 && !loading && "Todolist"}
-        {todos.length <= 0 && !loading && "No tasks available"}
+        {isLoading && <Loading />}
+        {todos.length > 0 && !isLoading && "Todolist"}
+        {todos.length <= 0 && !isLoading && "No tasks available"}
       </h3>
       {todos
         ?.slice()
