@@ -1,4 +1,4 @@
-# Zustodo - Todo Application
+# Zustodo - PWA Todo Application
 
 ## 🛠️ Tech Stack
 
