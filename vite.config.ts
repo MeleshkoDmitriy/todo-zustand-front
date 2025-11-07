@@ -35,6 +35,8 @@ const manifest: Partial<ManifestOptions> = {
   ],
   orientation: "any",
   display: "standalone",
+  short_name: "Zustodo",
+  name: "Zustodo",
 };
 
 // https://vitejs.dev/config/
