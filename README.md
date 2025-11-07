@@ -1,6 +1,27 @@
 # Zustodo - Todo Application
 
-A modern, feature-rich todo application built with React, TypeScript, and Vite. Zustodo is a Progressive Web App (PWA) that provides a seamless task management experience with real-time synchronization to a backend API.
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18.3** - UI library
+- **TypeScript 5.5** - Type safety
+- **Vite 5.4** - Build tool and dev server
+- **Zustand 5.0** - State management
+- **Axios** - HTTP client
+- **Sass** - CSS preprocessor
+- **React Icons** - Icon library
+- **Vite PWA Plugin** - PWA functionality
+
+### Backend
+The application connects to a RESTful API backend built with Node.js and Express. The backend repository is available at:
+
+**[todo-express-back](https://github.com/MeleshkoDmitriy/todo-express-back)**
+
+The backend provides:
+- RESTful API endpoints for CRUD operations
+- Query parameter support for filtering
+- CORS configuration for frontend integration
+- Deployed on Vercel
 
 ## 🚀 Features
 
@@ -31,57 +52,6 @@ Zustodo works as a **Progressive Web App**, providing:
 - **Auto-updates**: Automatic updates when new versions are available
 - **Responsive Design**: Optimized for both desktop and mobile devices
 - **App Icons**: Custom icons for maskable and standard display
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18.3** - UI library
-- **TypeScript 5.5** - Type safety
-- **Vite 5.4** - Build tool and dev server
-- **Zustand 5.0** - State management
-- **Axios** - HTTP client
-- **Sass** - CSS preprocessor
-- **React Icons** - Icon library
-- **Vite PWA Plugin** - PWA functionality
-
-### Backend
-The application connects to a RESTful API backend built with Node.js and Express. The backend repository is available at:
-
-**[todo-express-back](https://github.com/MeleshkoDmitriy/todo-express-back)**
-
-The backend provides:
-- RESTful API endpoints for CRUD operations
-- Query parameter support for filtering
-- CORS configuration for frontend integration
-- Deployed on Vercel
-
-```
-
-## 🏗️ Project Structure
-
-```
-src/
-├── api/              # API configuration
-├── components/       # React components
-│   ├── Badge/       # Category badge component
-│   ├── Button/      # Button component
-│   ├── Checkbox/    # Checkbox component
-│   ├── Filters/     # Filtering interface
-│   ├── Form/        # Todo creation form
-│   ├── IconButton/  # Icon button component
-│   ├── Input/       # Input component
-│   ├── List/        # Todo list container
-│   ├── Loading/     # Loading indicator
-│   ├── Tab/         # Filter tab component
-│   └── Todo/        # Individual todo item
-├── hooks/           # Custom React hooks
-│   └── useDebounce/ # Debounce hook for search
-├── store/           # Zustand store
-│   └── store.ts     # Global state management
-├── style/           # Global styles
-├── types/           # TypeScript type definitions
-└── App.tsx          # Main application component
-```
 
 ## 🎯 Usage
 
