@@ -13,9 +13,7 @@
 - **Vite PWA Plugin** - PWA functionality
 
 ### Backend
-The application connects to a RESTful API backend built with Node.js and Express. The backend repository is available at:
-
-**[todo-express-back](https://github.com/MeleshkoDmitriy/todo-express-back)**
+The application connects to a RESTful API backend built with Node.js and Express. The backend repository is available at: **[todo-express-back](https://github.com/MeleshkoDmitriy/todo-express-back)**
 
 The backend provides:
 - RESTful API endpoints for CRUD operations
